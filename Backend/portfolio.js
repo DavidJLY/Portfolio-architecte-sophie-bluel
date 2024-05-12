@@ -4,7 +4,7 @@ const projet = await reponse.json();
 
 affichage(projet);
 
-//Ecoute et appel de l'API par les boutons filtres
+//Ecoute des boutons filtres
 const buttonTous = document.querySelector("#tous");
 const buttonObjets = document.querySelector("#objets");
 const buttonAppart = document.querySelector("#appart");
