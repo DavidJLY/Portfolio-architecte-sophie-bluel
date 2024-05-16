@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Sophie Bluel - Architecte d'intérieur Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../Backend/login.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap" rel="stylesheet">
@@ -14,8 +15,8 @@
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
-                <li>projets</li>
-                <li>contact</li>
+                <li><a href="index.html#portfolio">projets</a></li>
+			    <li><a href="index.html#contact">contact</a></li>
                 <li>login</li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
@@ -28,7 +29,8 @@
 			<input type="email" name="email" id="email">
 			<label for="pass">Mot de passe</label>
 			<input type="password" name="password" id="pass">
-			<input type="submit" value="Se connecter">
+            <span id="erreur" class="messageErreur"></span>
+			<input type="submit" id="connexionButton" value="Se connecter">
             <a href="#">Mot de passe oublié</a>
 		</form>
 	</section>

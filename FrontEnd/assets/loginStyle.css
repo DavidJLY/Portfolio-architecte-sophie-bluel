@@ -39,7 +39,16 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+nav li img {
+	height: 20px;
+}
+
+nav a {
+	color: black;
+	text-decoration: none;
+}
+
+li a:hover {
 	color: #B1663C;
 }
 
@@ -53,6 +62,10 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+
+.messageErreur {
+	color: red;
 }
 
 #login {

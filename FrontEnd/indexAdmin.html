@@ -5,6 +5,8 @@
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="module" src="../Backend/portfolio.js" defer></script>
+	<script type="module" src="../Backend/modif.js" defer></script>
+    <script src="https://kit.fontawesome.com/e058aefe2f.js" crossorigin="anonymous"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
@@ -12,13 +14,17 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+<div id="connected">
+    <i class="fa-regular fa-pen-to-square"></i>
+    <p>Mode édition</p>
+</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="logout" href="index.html">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -26,7 +32,7 @@
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img src="./assets/images/sophie-bluel.png" alt="photo de Sophie Bluel">
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,12 +42,9 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="filters">
-			<input type="button" class="button" id="tous" value="Tous"/>
-			<input type="button" class="button" id="objets" value="Objets"/>
-			<input type="button" class="button" id="appart" value="Appartements"/>
-			<input type="button" class="button" id="hr" value="Hotels & restaurants"/>
+		<div class="titreModif">
+			<h2>Mes Projets</h2>
+			<button id="modif"><i class="fa-regular fa-pen-to-square"></i> modifier</button>
 		</div>
 		<div class="gallery">
 		</div>

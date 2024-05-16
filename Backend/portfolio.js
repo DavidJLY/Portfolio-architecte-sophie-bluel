@@ -1,7 +1,8 @@
-//Affichage par défaut Récupération des projets depuis l'API
+//Récupération des projets depuis l'API
 const reponse = await fetch("http://localhost:5678/api/works");
 const projet = await reponse.json();
 
+//Affichage de tous les projets
 affichage(projet);
 
 //Ecoute des boutons filtres
@@ -19,6 +20,7 @@ buttonHr.addEventListener("click", function() {
     filtreCategorie(3);
 });
 buttonTous.addEventListener("click", function() {
+    document.querySelector(".gallery").innerHTML = "";
     affichage(projet);
 });
 

@@ -84,18 +84,35 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+/*Style de la barre de connexion en haut de page*/
+#connected {
+	background-color: black;
+	height: 59px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
+nav li img {
+	height: 20px;
+}
+nav a {
+	color: black;
+	text-decoration: none;
+}
 
-li:hover {
+li a:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -149,7 +166,7 @@ li:hover {
 	background-color: #1D6154;
 	color: white;
 }
-
+/*style de la gallerie de projet*/
 .gallery {
 	width: 100%;
 	display: grid;
@@ -208,5 +225,26 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+/*Style et icones en session connectée*/
+.iconeConnect {
+	color: white;
+	height: 30px;
+}
+#modif {
+	color: black;
+	background-color: transparent;
+	border: transparent;
+	border-radius: 30%;
+	margin-bottom: 1em;
+}
+#modif:hover {
+	border: solid #1D6154;
+}
+.titreModif {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 5em;
 }
 
