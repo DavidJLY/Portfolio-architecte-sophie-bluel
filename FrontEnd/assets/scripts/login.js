@@ -37,8 +37,8 @@ function api(email, password) {
         //récupération du token dans la réponse de l'api, stockage du token et redirection
         res.json().then(data => {
             if (data.token) {
-                sessionStorage.setItem("token" , data.token);
-                window.location.href = "../FrontEnd/indexAdmin.html";
+                sessionStorage.setItem("token", data.token);
+                window.location.href = "../FrontEnd/index.html";
                 console.log("Connexion réussie");
             }else{
                 afficherErreur("Connexion échouée, les identifiants sont incorrect");
@@ -54,17 +54,7 @@ function afficherErreur(message) {
     span.innerText = messageErreur;
 }
 
-//Tentative de mise en place de logout
-/*const logout = document.getElementById("logout");
-logout.addEventListener('click', (event) => {
-    event.preventDefault();
-    sessionStorage.removeItem("token");
-    window.location.href = "../FrontEnd/index.html";
-    console.log("ca marche");
-});
-*/
-
-/*version faite par le mentor
+/*version faite par/avec le mentor
 //Ecoute du bouton submit
 const btConnect = document.getElementById('connexionButton');
 btConnect.addEventListener('click',(event) => {

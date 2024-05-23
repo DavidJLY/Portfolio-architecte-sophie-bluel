@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script type="module" src="../Backend/portfolio.js" defer></script>
+	<script type="module" src="assets/scripts/script.js" defer></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
@@ -18,7 +18,8 @@
 		<ul>
 			<li><a href="#portfolio">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="logIn" href="login.html">login</a></li>
+			<li><a class="loginHide" id="logOut" href="">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,13 +37,27 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="filters">
+		<div class="titleProject">
+			<h2>Mes Projets</h2>
+			<button type="button" class="loginHide" id="modif"><span><i class="fa-regular fa-pen-to-square"></i> modifier</span></button>
+		</div>
+		<div id="filtres" class="filters">
 			<input type="button" class="button" id="tous" value="Tous"/>
 			<input type="button" class="button" id="objets" value="Objets"/>
 			<input type="button" class="button" id="appart" value="Appartements"/>
 			<input type="button" class="button" id="hr" value="Hotels & restaurants"/>
 		</div>
+		<dialog id="modal1" class="modaleModif" role="dialog" aria-hidden="true" aria-labelledby="titleModal">
+			<div class="modal-wrapper">
+				<div id="closeIcone" title="closeIcone"><i class="fa-solid fa-xmark"></i></div>
+				<h3 id="titleModal">Gallerie photo</h3>
+				<div class="galleryModal">
+				</div>
+				<div class="btnAjout">
+					<button id="ajoutPhoto">Ajouter une photo</button>
+				</div>
+			</div>
+		</dialog>
 		<div class="gallery">
 		</div>
 	</section>
