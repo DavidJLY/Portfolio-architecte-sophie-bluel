@@ -85,16 +85,6 @@ h2{
 	color: #1D6154
 }
 
-/*Style de la barre de connexion en haut de page*/
-.connected {
-	background-color: black;
-	height: 59px;
-	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-}
 nav ul {
 	display: flex;
 	align-items: center;
@@ -181,7 +171,7 @@ li a:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -245,13 +235,19 @@ footer nav ul {
 	width: 84px;
 	background-color: white;
 	border: transparent;
+	cursor: pointer;
 }
 
-.loginHide {
+/*Classes pour faire apparaitre ou disparaitre*/
+.hide {
 	display: none;
 }
+
+.show {
+	display: block;
+}
 /*Travail sur la modale*/
-#modal1 {
+.modal {
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -274,11 +270,16 @@ footer nav ul {
 	height: 688px;
 	border-radius: 10px;
 }
-#closeIcone {
+
+.closeIcone {
 	margin-top: 30px;
 	margin-right: 30px;
 	display: flex;
 	flex-direction: row-reverse;
+}
+
+#return {
+	margin-left: 30px;
 }
 
 .galleryModal {
@@ -289,22 +290,36 @@ footer nav ul {
 	grid-column-gap: 5px;
 	grid-row-gap: 5px;
 	padding-left: 60px;
-	padding-right: 50px;
+	padding-right: 60px;
 	margin-top: 50px;
 }
 
 .galleryModal img {
-	width: 80%;
+	width: 100%;
+}
+
+#divImage {
+	position: relative;
+}
+
+.suppr {
+	background-color: black;
+	color: white;
+	position: absolute;
+	cursor: pointer;
+	top: 5px;
+    right: 5px;
+	border: transparent;
 }
 
 .btnAjout {
 	display: flex;
 	justify-content: center;
-	margin-top: 100px;
+	margin-top: 50px;
 	padding-top: 50px;
 	margin-left: 50px;
 	margin-right: 50px;
-	border-top: 1px solid #1D6154;
+	border-top: 1px solid #B3B3B3;
 }
 
 #ajoutPhoto {
@@ -319,4 +334,95 @@ footer nav ul {
 	color: white;
 	align-items: center;
 }
+/*Style de la seconde vue de la modal*/
+.titleModal2 {
+	margin-bottom: 50px;
+}
+
+#intModal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#logoAjout {
+	color: #B9C5CC;
+	font-size: 5.5em;
+	margin-top: 20px;
+}
+
+#fondAjout {
+	width: 420px;
+	height: 169px;
+	background-color: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.styleAjoutPhoto {
+	background-color: #CBD6DC;
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #306685;
+	cursor: pointer;
+}
+
+#format {
+	margin-top: 5px;
+}
+
+#inputAjoutPhoto {
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: #CBD6DC;
+	color: #306685;
+	border: transparent;
+}
+
+#format {
+	margin-bottom: 10px;
+}
+
+/*Formulaire*/
+#formAjout {
+	width: 420px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 30px;
+}
+
+#titre {
+	height: 51px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 30px;
+}
+
+#categorie {
+	height: 51px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 50px;
+	background-color: white;
+}
+
+#envoyerProjet {
+	width: 237px;
+	height: 36px;
+	background-color: #A7A7A7;
+	color: white;
+	margin-top: 50px;
+	border-top: solid #A7A7A7;
+}
+
+
+
 

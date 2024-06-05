@@ -5,6 +5,8 @@ const projet = await reponse.json();
 const catReponse = await fetch("http://localhost:5678/api/categories");
 const categorie = await catReponse.json();
 
+const windowModal = document.getElementById("modal");
+
 //Test de la présence du token et affichage en fonction
 let key = sessionStorage.getItem("token");
 if(key) {
@@ -24,7 +26,7 @@ logout.addEventListener('click', (event) => {
     window.location.href = "../FrontEnd/index.html";
 });
 
-//Ecoute des boutons filtres
+//Ecoute des boutons filtres en mode visiteur
 const buttonTous = document.querySelector("#tous");
 const buttonObjets = document.querySelector("#objets");
 const buttonAppart = document.querySelector("#appart");
@@ -43,54 +45,7 @@ buttonTous.addEventListener("click", function() {
     affichage(projet);
 });
 
-//Ecoute du bouton modifier en mode connecté
-const btnModif = document.getElementById('modif');
-btnModif.addEventListener('click', (event) => {
-    modal();
-});
-
-
-//Ecoute des comportements sur les modales (btn fermer, echap et click ext)
-const btnClose = document.querySelector('#closeModal');
-btnClose.addEventListener('click', () => {
-    closeModal();
-});
-
-/*Clique exterieur pour fermer la modale. ne fonctionne pas
-overlay.addEventListener("click", closeModal());
-// Empêcher la propagation de l'événement de clic dans la modale
-modal.addEventListener("click", stopPropagation);*/
-
-window.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-        closeModal();
-    }
-});
-
-//changement de modale au clique ajoutPhoto
-const ajoutPhoto = document.querySelector("#ajoutPhoto");
-ajoutPhoto.addEventListener('click', (event) => {
-    const gallerieView = document.querySelector("#galleryView");
-    gallerieView.classList.remove('show');
-    gallerieView.classList.add('hide');
-    const addPhotoView = document.querySelector('#addPhotoView');
-    addPhotoView.classList.remove('hide');
-    addPhotoView.classList.add('show');
-    modalAjout();
-})
-
-// Ecoute du bouton return de la modal
-const retour = document.querySelector("#return");
-retour.addEventListener('click', (event) => {
-    const gallerieView = document.querySelector("#galleryView");
-    gallerieView.classList.remove('hide');
-    gallerieView.classList.add('show');
-    const addPhotoView = document.querySelector('#addPhotoView');
-    addPhotoView.classList.remove('show');
-    addPhotoView.classList.add('hide');
-})
-
-/******Fonctions*******/
+//Affichage général ou par catégorie
 function filtreCategorie (categoryId){
     const objets = projet.filter((projet) => projet.categoryId == categoryId);
     document.querySelector(".gallery").innerHTML = "";
@@ -112,6 +67,23 @@ function affichage(works){
         figure.appendChild(imageElement);
         figure.appendChild(titleElement);
     }
+}
+
+/*--------Appel de toutes le fonctions pour changements en mode connecté--------*/
+
+function modeEdition() {
+    chgLog();
+    bandeaumodeEdition();
+    filtersHide();
+    titleModeEdition();
+}
+
+//Changement du logIn pour le logOut
+function chgLog() {
+    const logout = document.getElementById("logOut");
+    logout.classList.remove("hide");
+    const login = document.getElementById("logIn");
+    login.classList.add("hide");
 }
 
 //Changements de la page connectée
@@ -146,20 +118,20 @@ function titleModeEdition() {
     title.style.marginBottom = "100px";
 }
 
-//Changement du logIn pour le logOut
-function chgLog() {
-    const logout = document.getElementById("logOut");
-    logout.classList.remove("hide");
-    const login = document.getElementById("logIn");
-    login.classList.add("hide");
-}
+/*-------Mise en place de la modale-------*/
 
-//Appel de toutes le fonctions pour changement en mode connecté
-function modeEdition() {
-    chgLog();
-    bandeaumodeEdition();
-    filtersHide();
-    titleModeEdition();
+//Ecoute du bouton modifier en mode connecté
+const btnModif = document.getElementById('modif');
+btnModif.addEventListener('click', (event) => {
+    modal();
+});
+
+//Apparition de la première vue de la modale
+function modal() {
+    const openModal = document.querySelector("#modal");
+    openModal.setAttribute('aria-hidden', 'false');
+    openModal.style.display = 'flex';
+    affichageModal(projet);
 }
 
 //Affichage de la gallery de la modale
@@ -181,37 +153,6 @@ function affichageModal(works){
     }
 }
 
-function createbtnSuppr(work) {
-    const btnSuppr = document.createElement('button');
-    btnSuppr.innerHTML = `<i class="fa-solid fa-trash-can"></i>`; 
-    btnSuppr.id = "suppr-" + work.id;
-    btnSuppr.classList.add("suppr");
-    
-    // Écoute du bouton supprimer des projets de la modale Fonctionne mais raffraichissement complet de la page...
-    btnSuppr.addEventListener('click', (event) => {
-        event.preventDefault();
-        const response = fetch(`http://localhost:5678/api/works/${work.id}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${key}`
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                event.preventDefault();
-                console.log('Travail supprimé avec succès');
-                btnSuppr.parentElement.remove();
-            } else {
-                console.error('Échec de la suppression du travail');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur :', error);
-        });
-    });
-    return btnSuppr;
-}
-
 //Creation de l'element image
 function createImageElement(work) {
     const imageElement = document.createElement("img");
@@ -222,14 +163,56 @@ function createImageElement(work) {
     return imageElement;
 }
 
-//Apparition de la modale
-function modal() {
-    const openModal = document.querySelector("#modal");
-    openModal.setAttribute('aria-hidden', 'false');
-    openModal.style.display = 'flex';
-    affichageModal(projet);
+function createbtnSuppr(work) {
+    const btnSuppr = document.createElement('button');
+    btnSuppr.innerHTML = `<i class="fa-solid fa-trash-can"></i>`; 
+    btnSuppr.id = "suppr-" + work.id;
+    btnSuppr.classList.add("suppr");
+    
+    // Écoute du bouton supprimer des projets de la modale Fonctionne mais raffraichissement complet de la page...
+    btnSuppr.addEventListener('click', async(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        await supprProjet(work);
+    });
+
+    async function supprProjet(work) {
+        try {
+            const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${key}`
+                }
+            });
+            if (response.ok) {
+                console.log('Travail supprimé avec succès');
+                btnSuppr.closest('figure').remove();
+            } else {
+                console.error('Échec de la suppression du travail');
+            }
+        } catch (error) {
+            console.error('Erreur :', error);
+        }
+    
+        }
+    return btnSuppr;
 }
 
+/*-------Mise en place de la seconde vue de la modale-------*/
+
+//changement de modale au clique ajoutPhoto
+const ajoutPhoto = document.querySelector("#ajoutPhoto");
+ajoutPhoto.addEventListener('click', (event) => {
+    const gallerieView = document.querySelector("#galleryView");
+    gallerieView.classList.remove('show');
+    gallerieView.classList.add('hide');
+    const addPhotoView = document.querySelector('#addPhotoView');
+    addPhotoView.classList.remove('hide');
+    addPhotoView.classList.add('show');
+    modalAjout();
+})
+
+//Creation de la seconde vue de la modale
 function modalAjout() {
     //Creation de l'ajout de la photo
     const modalAjout = document.querySelector(".modalAjout");
@@ -306,43 +289,71 @@ document.getElementById('photoProjet').addEventListener('change', function (even
         image.style.aspectRatio = 'auto';
         image.style.borderRadius = '10px';
         fondAjout.appendChild(image);
-    };
-
-    reader.readAsDataURL(file);
-});
-
-
-//Recuperation des données du form et changement du btnSubmit Ne fonctionne pas
-function validateForm () {
-    const photoInput = document.getElementById("photoProjet");
-    const titleInput = document.getElementById("titre");
-    const categorieSelect = document.getElementById("categorie");
-    const btnSubmit = document.getElementById("envoyerProjet");
-
-    if (titleInput.value && categorieSelect.value && photoInput.files.length > 0) {
-        btnSubmit.style.backgroundColor = 'green';
-        btnSubmit.disabled = false;
-        console.log("recperé");
-    } else {
-        btnSubmit.style.backgroundColor = 'gray';
-        btnSubmit.disabled = true;
-        console.log("pas recu");
-        return;
     }
-}
-
-//Ecouter les evenements du form
-function listenerForm () {
-    const photoInput = document.getElementById("photoProjet");
-    const titleInput = document.getElementById("titre");
-    const categorieSelect = document.getElementById("categorie");
-    photoInput.addEventListener('change' () => {
-        validateForm();
+    reader.readAsDataURL(file);
     });
 
-    titleInput.addEventListener('input' validateForm);
-    categorieSelect.addEventListener('change' validateForm);
+
+//Recuperation du formulaire
+    const photoP = document.getElementById("photoProjet");
+    const nom = document.getElementById("titre");
+    const cat = document.getElementById("categorie");
+    const btnValider = document.getElementById("envoyerProjet");
+
+    function checkInputs() {
+        if (nom.value && cat.value && photoP.files.length > 0) {
+            btnValider.style.backgroundColor = '#1D6154';
+            btnValider.disabled = false;
+        } else {
+            btnValider.style.backgroundColor = '#B3B3B3';
+            btnValider.disabled = true;
+            return;
+        }
+    }
+
+    formAjout.addEventListener('change', function (event) {
+        checkInputs();
+    });
+
+    btnValider.addEventListener('click', validerProjet);
+
+   
 }
+
+//Récupération des données du form et envoi à l'API Ne fonctionne pas 
+ async function validerProjet (event) {
+        event.preventDefault();
+        console.log("Données récupérées");
+        const photoP = document.getElementById("photoProjet").files[0];
+        const nom = document.getElementById("titre").value;
+        const cat = document.getElementById("categorie").value;
+        
+        try {
+            const nouveauProjet = new FormData();
+            nouveauProjet.append("title", nom);
+            nouveauProjet.append("image", photoP);
+            nouveauProjet.append("category", cat);
+
+            const response = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: nouveauProjet
+            });
+            if (response.ok) {
+                console.log("Projet ajouté!");
+            } else {
+                console.error("Erreur lors de l'ajout du projet:", response.status, response.statusText);
+                const errorResponse = await response.json();
+                console.error("Contenu de la réponse:", errorResponse);
+                afficherMessage("Erreur lors de l'ajout du projet.");
+            }
+        } catch (error) {
+            console.error("Erreur lors de la requête POST:", error);
+            afficherMessage("Une erreur est survenue. Veuillez réessayer.");
+        }
+    }
 
 //Utilisation de l'API pour creer les categories selectionnables
 function setOption(selectCat) {
@@ -354,11 +365,41 @@ function setOption(selectCat) {
     }
 }
 
+/*------Fermeture et navigation dans la modale------*/
+
 function closeModal() {
     const closeModal = document.querySelector("#modal");
     closeModal.setAttribute('aria-hidden', 'true');
     closeModal.style.display = 'none';
 }
 
+// Ecoute du bouton return de la modal
+const retour = document.querySelector("#return");
+retour.addEventListener('click', (event) => {
+    const gallerieView = document.querySelector("#galleryView");
+    gallerieView.classList.remove('hide');
+    gallerieView.classList.add('show');
+    const addPhotoView = document.querySelector('#addPhotoView');
+    addPhotoView.classList.remove('show');
+    addPhotoView.classList.add('hide');
+});
+
+//Ecoute des comportements sur les modales (btn fermer, echap et click ext)
+const btnClose = document.querySelector('#closeModal');
+btnClose.addEventListener('click', () => {
+    closeModal();
+});
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+//fermeture au click exterieur à la modale
+window.addEventListener("click", function(event) {
+    if (event.target === windowModal) {
+        closeModal();
+      }
+});
 
 

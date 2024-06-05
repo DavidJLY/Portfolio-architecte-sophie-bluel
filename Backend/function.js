@@ -17,7 +17,7 @@ export function affichage(works){
 }
 
 //Affichage de la gallery de la modale
-export function affichageModal(works){
+ function affichageModal(works){
     for (let i=0; i<works.length; i++){
         //Création des éléments
         const affichage = document.querySelector(".galleryModal");
