@@ -11,12 +11,10 @@ const windowModal = document.getElementById("modal");
 let key = sessionStorage.getItem("token");
 if(key) {
     modeEdition();
-    affichage(projet);
-console.log("connecté");
-}else{
-    affichage(projet);
-    console.log("site mode visiteur");
+} else {
+    console.log("Site en mode visiteur");
 }
+affichage(projet);
 
 //Logout
 const logout = document.querySelector("#logOut");
@@ -52,16 +50,16 @@ function filtreCategorie (categoryId){
     affichage(objets);
 }
 
-function affichage(works){
-    for (let i=0; i<works.length; i++){
+function affichage(projet){
+    for (let i=0; i<projet.length; i++){
         //Création des éléments
         const affichage = document.querySelector(".gallery");
         const figure = document.createElement("figure");
         const imageElement = document.createElement("img");
-        imageElement.src = works[i].imageUrl;
-        imageElement.alt = works[i].title;
+        imageElement.src = projet[i].imageUrl;
+        imageElement.alt = projet[i].title;
         const titleElement = document.createElement("figcaption");
-        titleElement.innerText = works[i].title;
+        titleElement.innerText = projet[i].title;
         //Rattachement au DOM
         affichage.appendChild(figure);
         figure.appendChild(imageElement);
@@ -135,67 +133,69 @@ function modal() {
 }
 
 //Affichage de la gallery de la modale
-function affichageModal(works){
+function affichageModal(projet){
     const affichage = document.querySelector(".galleryModal");
     affichage.innerHTML = "";
-    for (let i=0; i<works.length; i++){
+    for (let i=0; i<projet.length; i++){
         //Création des éléments
         const figure = document.createElement("figure");
-        const imageElement = createImageElement(works[i]);
-        const btnSuppr = createbtnSuppr(works[i]);
+        figure.id = "figure" + projet.id;
+        const imageElement = createImageElement(projet[i]);
+        const btnSuppr = createbtnSuppr(projet[i]);
         const divImg = document.createElement('div');
         divImg.id = "divImage";
+        //Rattachement au DOM
         divImg.appendChild(imageElement);
         divImg.appendChild(btnSuppr);
         figure.appendChild(divImg);
-        //Rattachement au DOM
         affichage.appendChild(figure);
     }
 }
 
 //Creation de l'element image
-function createImageElement(work) {
+function createImageElement(projet) {
     const imageElement = document.createElement("img");
-    imageElement.src = work.imageUrl;
-    imageElement.alt = work.title;
-    imageElement.id = work.id;
+    imageElement.src = projet.imageUrl;
+    imageElement.alt = projet.title;
+    imageElement.id = projet.id;
 
     return imageElement;
 }
 
-function createbtnSuppr(work) {
+function createbtnSuppr(projet) {
     const btnSuppr = document.createElement('button');
     btnSuppr.innerHTML = `<i class="fa-solid fa-trash-can"></i>`; 
-    btnSuppr.id = "suppr-" + work.id;
+    btnSuppr.id = "suppr-" + projet.id;
     btnSuppr.classList.add("suppr");
     
-    // Écoute du bouton supprimer des projets de la modale Fonctionne mais raffraichissement complet de la page...
-    btnSuppr.addEventListener('click', async(event) => {
+    // Écoute du bouton supprimer des projets de la modale Fonctionne mais rafraichissement complet de la page...
+    btnSuppr.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
-        await supprProjet(work);
-    });
-
-    async function supprProjet(work) {
-        try {
-            const response = await fetch(`http://localhost:5678/api/works/${work.id}`, {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${key}`
-                }
-            });
+        supprProjet(projet).then(function(response){
+            console.log(response);
+            console.log("suppr");
             if (response.ok) {
                 console.log('Travail supprimé avec succès');
-                btnSuppr.closest('figure').remove();
+                //document.getElementById("suppr-" + projet.id).remove();
+                document.getElementById("figure" + projet.id).remove();
             } else {
                 console.error('Échec de la suppression du travail');
             }
-        } catch (error) {
-            console.error('Erreur :', error);
-        }
-    
-        }
+        });
+        console.log("on est content");
+    });
     return btnSuppr;
+}
+
+async function supprProjet(projet) {
+    const response = await fetch(`http://localhost:5678/api/works/${projet.id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${key}`
+        }
+    });
+    return response;
 }
 
 /*-------Mise en place de la seconde vue de la modale-------*/
@@ -216,6 +216,7 @@ ajoutPhoto.addEventListener('click', (event) => {
 function modalAjout() {
     //Creation de l'ajout de la photo
     const modalAjout = document.querySelector(".modalAjout");
+    modalAjout.innerHTML = "";
     const intModal = document.createElement("div");
     intModal.id = "intModal"
     const fondAjout = document.createElement("div");
@@ -313,20 +314,20 @@ document.getElementById('photoProjet').addEventListener('change', function (even
 
     formAjout.addEventListener('change', function (event) {
         checkInputs();
+        console.log("données récp");
     });
 
     btnValider.addEventListener('click', validerProjet);
 
-   
 }
 
-//Récupération des données du form et envoi à l'API Ne fonctionne pas 
+//Récupération des données du form et envoi à l'API Ne fonctionne pas. Recharge de la page
  async function validerProjet (event) {
         event.preventDefault();
-        console.log("Données récupérées");
         const photoP = document.getElementById("photoProjet").files[0];
         const nom = document.getElementById("titre").value;
         const cat = document.getElementById("categorie").value;
+        console.log("Données récupérées");
         
         try {
             const nouveauProjet = new FormData();
@@ -347,11 +348,9 @@ document.getElementById('photoProjet').addEventListener('change', function (even
                 console.error("Erreur lors de l'ajout du projet:", response.status, response.statusText);
                 const errorResponse = await response.json();
                 console.error("Contenu de la réponse:", errorResponse);
-                afficherMessage("Erreur lors de l'ajout du projet.");
             }
         } catch (error) {
             console.error("Erreur lors de la requête POST:", error);
-            afficherMessage("Une erreur est survenue. Veuillez réessayer.");
         }
     }
 

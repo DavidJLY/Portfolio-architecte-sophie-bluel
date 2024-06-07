@@ -360,5 +360,84 @@ function closeModal() {
     closeModal.style.display = 'none';
 }
 
+//code du mentor
+Object.values(projets).forEach( projet => {
+    // creates modal page element
+    const modalFigureElement = document.createElement("figure");
+    modalFigureElement.id = "fig_mod_img_"+projet.id;
+    modalFigureElement.classList.add("image-container");
+      // img
+    const modalImageElement = document.createElement("img");
+    modalImageElement.src = projet.imageUrl; // adds API value
+      // dustbin container
+    const modalDustbinElement = document.createElement("div");
+    modalDustbinElement.id = "img_"+projet.id; // updates id with API value
+    modalDustbinElement.classList.add("dustbin-container");
+      // dustbin img
+    const modalDustbinImg = document.createElement("span");
+    modalDustbinImg.classList.add( "fa-sm","fa-regular","fa-trash-can", "dustbin");
+    modalDustbinImg.setAttribute("aria-hidden", "true");
 
+ // adds elements to the DOM
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.appendChild(modalFigureElement);
+    modalFigureElement.appendChild(modalImageElement);
+    modalFigureElement.appendChild(modalDustbinElement);
+    modalDustbinElement.appendChild(modalDustbinImg);
+    
+    modalDustbinImg.addEventListener('click', confirmRemoveProject);
+});
+David Diop11:33
+Object.values(projets).forEach( projet => {
+    // creates modal page element
+    const modalFigureElement = document.createElement("figure");
+    modalFigureElement.id = "fig_mod_img_"+projet.id;
+    modalFigureElement.classList.add("image-container");
+      // img
+    const modalImageElement = document.createElement("img");
+    modalImageElement.src = projet.imageUrl; // adds API value
+      // dustbin container
+    const modalDustbinElement = document.createElement("div");
+    modalDustbinElement.id = "img_"+projet.id; // updates id with API value
+    modalDustbinElement.classList.add("dustbin-container");
+      // dustbin img
+    const modalDustbinImg = document.createElement("span");
+    modalDustbinImg.classList.add( "fa-sm","fa-regular","fa-trash-can", "dustbin");
+    modalDustbinImg.setAttribute("aria-hidden", "true");
 
+ // adds elements to the DOM
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.appendChild(modalFigureElement);
+    modalFigureElement.appendChild(modalImageElement);
+    modalFigureElement.appendChild(modalDustbinElement);
+    modalDustbinElement.appendChild(modalDustbinImg);
+    
+    modalDustbinImg.addEventListener('click', confirmRemoveProject);
+});
+
+Object.values(projets).forEach( projet => {
+    // creates modal page element
+    const modalFigureElement = document.createElement("figure");
+    modalFigureElement.id = "fig_mod_img_"+projet.id;
+    modalFigureElement.classList.add("image-container");
+      // img
+    const modalImageElement = document.createElement("img");
+    modalImageElement.src = projet.imageUrl; // adds API value
+      // dustbin container
+    const modalDustbinElement = document.createElement("div");
+    modalDustbinElement.id = "img_"+projet.id; // updates id with API value
+    modalDustbinElement.classList.add("dustbin-container");
+      // dustbin img
+    const modalDustbinImg = document.createElement("span");
+    modalDustbinImg.classList.add( "fa-sm","fa-regular","fa-trash-can", "dustbin");
+    modalDustbinImg.setAttribute("aria-hidden", "true");
+
+ // adds elements to the DOM
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.appendChild(modalFigureElement);
+    modalFigureElement.appendChild(modalImageElement);
+    modalFigureElement.appendChild(modalDustbinElement);
+    modalDustbinElement.appendChild(modalDustbinImg);
+    
+    modalDustbinImg.addEventListener('click', confirmRemoveProject);
+});
