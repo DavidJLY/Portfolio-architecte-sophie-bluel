@@ -38,7 +38,7 @@ function api(email, password) {
         res.json().then(data => {
             if (data.token) {
                 sessionStorage.setItem("token", data.token);
-                window.location.href = "../FrontEnd/index.html";
+                window.location.href = "../../index.html";
                 console.log("Connexion réussie");
             }else{
                 afficherErreur("Connexion échouée, les identifiants sont incorrect");

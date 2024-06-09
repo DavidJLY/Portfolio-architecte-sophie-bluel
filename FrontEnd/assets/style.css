@@ -167,7 +167,7 @@ li a:hover {
 
 .gallery img {
 	width: 100%;
-
+	height: 490px;
 }
 #contact {
 	width: 50%;
@@ -296,6 +296,7 @@ footer nav ul {
 
 .galleryModal img {
 	width: 100%;
+	height: 130px;
 }
 
 #divImage {
@@ -419,6 +420,7 @@ footer nav ul {
 	height: 36px;
 	background-color: #A7A7A7;
 	color: white;
+	border: transparent;
 	margin-top: 50px;
 	border-top: solid #A7A7A7;
 }
