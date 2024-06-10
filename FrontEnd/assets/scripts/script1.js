@@ -1,4 +1,3 @@
-
 //Récupération des projets depuis l'API
 const reponse = await fetch("http://localhost:5678/api/works");
 const projects = await reponse.json();
@@ -295,6 +294,7 @@ document.getElementById('photoProjet').addEventListener('change', function (even
     const labelId = document.getElementById("labelId");
     const logoFond = document.getElementById("logoAjout");
     const p = document.getElementById("format");
+    if (photoP.files[0].type === "image/jpeg" || photoP.files[0].type === "image/png") {
 
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -313,8 +313,12 @@ document.getElementById('photoProjet').addEventListener('change', function (even
         fondAjout.appendChild(image);
     }
     reader.readAsDataURL(file);
-    });
-
+    
+    }else{
+        p.innerHTML = "Erreur de format d'image";
+        p.style.color = "red";
+    }
+});
 
 //Recuperation du formulaire
     const photoP = document.getElementById("photoProjet");
@@ -328,8 +332,7 @@ document.getElementById('photoProjet').addEventListener('change', function (even
 
 
     function checkInputs() {
-        if (nom.value && cat.value && photoP.files.length > 0 && (photoP.files[0].type === "image/jpeg" || photoP.files[0].type === "image/png")
-        ) {
+        if (nom.value && cat.value && photoP.files.length > 0) {
             btnValider.style.backgroundColor = '#1D6154';
             btnValider.disabled = false;
             console.log(nom.value, cat.value);
