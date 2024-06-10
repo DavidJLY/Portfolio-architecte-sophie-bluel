@@ -266,6 +266,8 @@ function modalAjout() {
     const selectCat = document.createElement("select");
     selectCat.name = "categorie";
     selectCat.id = "categorie";
+    const btnDiv = document.createElement("div");
+    btnDiv.id = "btnDiv";
     const submit = document.createElement("input");
     submit.type = "submit";
     submit.value = "Valider";
@@ -284,7 +286,8 @@ function modalAjout() {
     formAjout.appendChild(labelCategorie);
     formAjout.appendChild(selectCat);
     setOption(selectCat);
-    formAjout.appendChild(submit);
+    formAjout.appendChild(btnDiv);
+    btnDiv.appendChild(submit);
 
     // Affiche l'image lorsqu'elle est sélectionnée
 document.getElementById('photoProjet').addEventListener('change', function (event) {

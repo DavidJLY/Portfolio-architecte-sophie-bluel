@@ -293,6 +293,8 @@ footer nav ul {
 	padding-left: 60px;
 	padding-right: 60px;
 	margin-top: 50px;
+	margin-bottom: 50px;
+	overflow-y: scroll;
 }
 
 .galleryModal img {
@@ -416,6 +418,12 @@ footer nav ul {
 	background-color: white;
 }
 
+#btnDiv {
+	border-top: 1px solid #B3B3B3;
+	display: flex;
+	justify-content: center;
+}
+
 #envoyerProjet {
 	width: 237px;
 	height: 36px;
@@ -423,7 +431,6 @@ footer nav ul {
 	color: white;
 	border: transparent;
 	margin-top: 50px;
-	border-top: solid #A7A7A7;
 }
 
 
