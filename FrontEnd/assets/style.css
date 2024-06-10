@@ -285,6 +285,7 @@ footer nav ul {
 .galleryModal {
 	box-sizing: border-box;
 	width: 100%;
+	height: 406px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 5px;

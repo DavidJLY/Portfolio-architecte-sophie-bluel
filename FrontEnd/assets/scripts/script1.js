@@ -328,8 +328,7 @@ document.getElementById('photoProjet').addEventListener('change', function (even
 
 
     function checkInputs() {
-        if (nom.value && cat.value && photoP.files.length > 0 &&
-            (photoP.type === "image/jpeg" || photoP.type === "image/png")
+        if (nom.value && cat.value && photoP.files.length > 0 && (photoP.files[0].type === "image/jpeg" || photoP.files[0].type === "image/png")
         ) {
             btnValider.style.backgroundColor = '#1D6154';
             btnValider.disabled = false;
@@ -337,6 +336,7 @@ document.getElementById('photoProjet').addEventListener('change', function (even
         } else {
             btnValider.style.backgroundColor = '#B3B3B3';
             btnValider.disabled = true;
+            console.log("erreur");
             return;
         }
     }
