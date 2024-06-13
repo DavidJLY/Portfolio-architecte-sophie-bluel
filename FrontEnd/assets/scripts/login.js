@@ -48,7 +48,7 @@ function api(email, password) {
 }
 
 //Affichage d'erreur
-export function afficherErreur(message) {
+function afficherErreur(message) {
     let span = document.getElementById("erreur");
     let messageErreur = message;
     span.innerText = messageErreur;

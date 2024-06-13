@@ -5,6 +5,7 @@
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://kit.fontawesome.com/e058aefe2f.js" crossorigin="anonymous"></script>
+	<script type="module" src="assets/scripts/script1.js"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
@@ -27,6 +28,7 @@
 </header>
 <main>
 	<section id="introduction">
+		<h2 id="introductionTitle">sophie-bluel</h2>
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
 		</figure>
@@ -43,12 +45,12 @@
 			<button type="button" class="hide" id="modif"><span><i class="fa-regular fa-pen-to-square"></i> modifier</span></button>
 		</div>
 		<div id="filtres" class="filters">
-			<input type="button" class="button" id="tous" value="Tous"/>
-			<input type="button" class="button" id="objets" value="Objets"/>
-			<input type="button" class="button" id="appart" value="Appartements"/>
-			<input type="button" class="button" id="hr" value="Hotels & restaurants"/>
+			<input type="button" class="button" id="tous" value="Tous">
+			<input type="button" class="button" id="objets" value="Objets">
+			<input type="button" class="button" id="appart" value="Appartements">
+			<input type="button" class="button" id="hr" value="Hotels & restaurants">
 		</div>
-		<dialog id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="titleModal">
+		<dialog id="modal" class="modal" aria-hidden="true" aria-labelledby="titleModal">
 			<div class="modal-wrapper">
 				<div id="closeModal" class="closeIcone" title="closeIcone"><i class="fa-solid fa-xmark"></i></div>
 				<!-- Vue Galerie Photo -->
@@ -62,7 +64,7 @@
 				<!-- Vue Ajout Photo -->
 				<div id="addPhotoView" class="hide">
 					<div id="return" title="returnIcone"><i class="fa-solid fa-arrow-left"></i></div>
-					<h3 id="titleModal" class="titleModal2">Ajout photo</h3>
+					<h3 id="titleModal2" class="titleModal2">Ajout photo</h3>
 					<div id="modalAjout" class="modalAjout">
 					</div>
 				</div>
@@ -93,6 +95,5 @@
 		</ul>
 	</nav>
 </footer>
-<script type="module" src="assets/scripts/script1.js" defer></script>
 </body>
 </html>

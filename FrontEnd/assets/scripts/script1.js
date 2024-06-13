@@ -5,11 +5,11 @@ const projects = await reponse.json();
 const catReponse = await fetch("http://localhost:5678/api/categories");
 const categorie = await catReponse.json();
 
+//Mise à jour des projets ajoutés
 async function loadProject() {
-    console.log("hehe");
-    const reponse = await fetch("http://localhost:5678/api/works");
+    const reponseUpdate = await fetch("http://localhost:5678/api/works");
     //projects = await reponse.json();
-    return reponse.json();
+    return reponseUpdate.json();
 }
 
 const windowModal = document.getElementById("modal");
@@ -25,7 +25,7 @@ affichage(projects);
 
 //Logout
 const logout = document.querySelector("#logOut");
-logout.addEventListener('click', (event) => {
+logout.addEventListener("click", (event) => {
     event.preventDefault();
     sessionStorage.removeItem("token");
     window.location.href = "../../index.html";
@@ -103,7 +103,7 @@ function bandeaumodeEdition () {
     iconeTitre.style.gap = '20px';
     iconeTitre.style.height = '59px'
     iconeTitre.style.color = 'white';
-    iconeTitre.style.backgroundColor = 'black';
+    iconeTitre.style.backgroundColor = "black";
     iconeTitre.style.width = '1440px';
     iconeTitre.style.position = 'relative';
 	iconeTitre.style.left = '-150px';
@@ -170,14 +170,14 @@ function createImageElement(project) {
     return imageElement;
 }
 
+//Creation du bouton de suppression pour chaque projet et suppression du projet
 function createbtnSuppr(project) {
     const btnSuppr = document.createElement('button');
     btnSuppr.innerHTML = `<i class="fa-solid fa-trash-can"></i>`; 
     btnSuppr.id = "suppr-" + project.id;
     btnSuppr.classList.add("suppr");
-    
     // Écoute du bouton supprimer des projets de la modale
-    btnSuppr.addEventListener('click', (event) => {
+    btnSuppr.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
         supprProjet(project).then(function(response){
@@ -185,7 +185,7 @@ function createbtnSuppr(project) {
             console.log("suppr");
             if (response.ok) {
                 document.getElementById("figure" + project.id).remove();
-                console.log('Travail supprimé avec succès');
+                console.log("Travail supprimé avec succès");
                 supprProjet(project);
                 loadProject().then(function(reponse){
                     affichageModal(reponse);
@@ -266,6 +266,10 @@ function modalAjout() {
     const selectCat = document.createElement("select");
     selectCat.name = "categorie";
     selectCat.id = "categorie";
+    const optionDisable = document.createElement("option");
+    optionDisable.value = "";
+    optionDisable.disabled = true;
+    optionDisable.selected = true;
     const btnDiv = document.createElement("div");
     btnDiv.id = "btnDiv";
     const submit = document.createElement("input");
@@ -285,6 +289,7 @@ function modalAjout() {
     formAjout.appendChild(inputName);
     formAjout.appendChild(labelCategorie);
     formAjout.appendChild(selectCat);
+    selectCat.appendChild(optionDisable);
     setOption(selectCat);
     formAjout.appendChild(btnDiv);
     btnDiv.appendChild(submit);
@@ -301,7 +306,6 @@ document.getElementById('photoProjet').addEventListener('change', function (even
 
     const reader = new FileReader();
     reader.onload = function (e) {
-        //fondAjout.innerHTML = '';
         labelId.classList.remove("styleAjoutPhoto");
         labelId.classList.add("hide");
         logoFond.classList.add("hide");
